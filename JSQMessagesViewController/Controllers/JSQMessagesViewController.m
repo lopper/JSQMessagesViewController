@@ -861,8 +861,10 @@ JSQMessagesKeyboardControllerDelegate>
 
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
 
-    UIView *innerView = selectedCell.messageBubbleContainerView;
-    if(!innerView)
+    UIView *innerView = nil;
+    if([selectedCell respondsToSelector:@selector(messageBubbleContainerView)]&& selectedCell.messageBubbleContainerView)
+        innerView = selectedCell.messageBubbleContainerView;
+    else
         innerView = selectedCell.contentView;
     
     CGRect selectedCellMessageBubbleFrame = [selectedCell convertRect:innerView.frame toView:self.view];
