@@ -830,6 +830,13 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     [menu setMenuVisible:NO animated:NO];
 
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
+    
+    UIView *innerView = nil;
+    if([selectedCell respondsToSelector:@selector(messageBubbleContainerView)]&& selectedCell.messageBubbleContainerView)
+        innerView = selectedCell.messageBubbleContainerView;
+    else
+        innerView = selectedCell.contentView;
+    
     CGRect selectedCellMessageBubbleFrame = [selectedCell convertRect:selectedCell.messageBubbleContainerView.frame toView:self.view];
 
     [menu setTargetRect:selectedCellMessageBubbleFrame inView:self.view];
